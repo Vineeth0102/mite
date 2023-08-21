@@ -1,4 +1,4 @@
-This repository contains a Morse code conversion program written in c languge.
+This repository contains a Morse code conversion program written in c language.
 The File project.c contains program which can convert text to Morse code and Morse code to text.
 The Morse Code mind map.png contains a visual representation of the program's features and functionality.
 The flowchart of morse code convertor is a diagram that illustrates the steps involved in the program's execution.
