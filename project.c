@@ -1,101 +1,113 @@
+#include <ctype.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-void morseToText(char *morse)
-{
-    char *morseCode[36] = {".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..",
-                           "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-",
-                           "-.--", "--..", "-----", ".----", "..---", "...--", "....-", ".....", "-....", "--...",
-                           "---..", "----."};//morse codes of all alphabets and numbers(0-9)
-    char *characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    int len = strlen(morse);
-    char buffer[100]; // buffer array to store the morse values
-    int Index = 0;    // Indexing value for buffer (currently starts with 0)
-    int i, j;
-    for (i = 0; i < len; i++)
-    {
-        if (morse[i] == ' ' || morse[i] == '\t')//spacing between words are determined
-        {
-            buffer[Index] = '\0'; // Null-terminate the buffer to form a valid string
-            Index = 0;        
-            for (j = 0; j < 36; j++) // comparing to find the right match
-            {
-                if (strcmp(buffer, morseCode[j]) == 0)
-                {
-                    printf("%c", characters[j]); // print characters one after the other
-                    break;
-                }
-            }
-        }
-        else
-        {
-            buffer[Index++] = morse[i];//incrementing of buffer index after storing the morse value 
-        }
+
+// Morse code mapping
+const char *morseCode[] = {
+    ".-",     "-...",   "-.-.",   "-..",    ".",      "..-.",  "--.",
+    "....",   "..",     ".---",   "-.-",    ".-..",   "--",    "-.",
+    "---",    ".--.",   "--.-",   ".-.",    "...",    "-",     "..-",
+    "...-",   ".--",    "-..-",   "-.--",   "--..",   "-----", ".----",
+    "..---",  "...--",  "....-",  ".....",  "-....",  "--...", "---..",
+    "----.",  ".-.-.-", "--..--", "..--..", ".----.", "-.--.", "-.--.-",
+    ".-..-.", "---...", "-.-.-.", "-....-", "..--.-", ".-.-.", "-.--.-",
+    "-...-",  ".-.-",   "-..-",   "..--.-", "-..-.",  "-.--.", "-....-",
+    "-.--.",  ".-.-.-", "-....-", "-...-",  "-.-.-.", "-.-",   "-..-",
+    "--..--", "-....-", "..--..", "-.--.",  "-...-",  ".-.-",  "-.--.-",
+    "-...-",  ".-.-.",  "-...-",  "--..--"};//morse codes of all alphabets and numbers(0-9)
+
+// Function to convert text to Morse code
+void textToMorse(const char *text) {
+  for (int i = 0; text[i]; i++) {
+    char c = toupper(text[i]);
+    if (c >= 'A' && c <= 'Z') {
+      printf("%s ", morseCode[c - 'A']);
+    } else if (c >= '0' && c <= '9') {
+      printf("%s ", morseCode[c - '0' + 26]);
+    } else if (c == ' ') {
+      printf("   "); // 3 spaces for word separation
+    } else {
+      // Handle special characters
+      int specialIndex = c - '!';
+      if (specialIndex >= 0 && specialIndex < 29) {
+        printf("%s ", morseCode[specialIndex + 36]);
+      }
     }
-    printf("\n");
+  }
+  printf("\n");
 }
 
-// Function to convert plain text into Morse code
-void textToMorse(char *text)
-{
-    char *morseCode[36] = {".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..",
-                           "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-",
-                           "-.--", "--..", "-----", ".----", "..---", "...--", "....-", ".....", "-....", "--...",
-                           "---..", "----."};
-    int len = strlen(text);
-    int i, j;
-    for (i = 0; i < len; i++)
-    {
-        if (text[i] == ' ')
-        {
-            printf(" "); // Print space for word separation
+// ... (rest of the code remains the same)
+
+// Function to convert text to
+// Function to convert Morse code to text
+void morseToText(const char *morse) {
+  char *token = strtok((char *)morse, " ");
+  while (token != NULL) {
+    int found = 0;
+    for (int i = 0; i < 36; i++) {
+      if (strcmp(token, morseCode[i]) == 0) {
+        if (i < 26) {
+          printf("%c", 'A' + i);
+        } else if (i < 36) {
+          printf("%c", '0' + i - 26);
         }
-        else if ((text[i] >= 'A' && text[i] <= 'Z') || (text[i] >= '0' && text[i] <= '9') || (text[i] >= 'a' && text[i] <= 'z'))
-        {
-            j = ((text[i] >= 'A' && text[i] <= 'Z')) ? text[i] - 'A' : ((text[i] >= 'a' && text[i] <= 'z') ? text[i] - 'a' : text[i] - '0' + 26);//using of ternary operator to determine alphabet types and numeric value
-            printf("%s ", morseCode[j]);
-        }
+        found = 1;
+        break;
+      }
     }
-    printf("\n");
+    if (!found && strcmp(token, " ") == 0) {
+      printf(" "); // Word separation
+    }
+    token = strtok(NULL, " ");
+  }
+  printf("\n");
 }
 
-// Main programme with menu and fuction calls
-void main()
-{
-    int choice;
-    char text[100];
-    printf("%c[4;3;35m\t\t\t\t\tWelcome to Morse Code Converter\n%c[0m",27,27);   
-    do
-    {
-        printf("\n\t%c[4mMenu\n%c[0m\n",27,27);
-        printf("1. Text to Morse code\n");
-        printf("2. Morse code to Text\n");
-        printf("3. Exit\n");
-        printf("Enter your choice : ");
-        scanf("%d", &choice);
-        getchar(); // Clear the newline character from the input buffer
-        if (choice == 1)
-        {
-            printf("Enter the text: ");
-            fgets(text, sizeof(text), stdin);
-            printf("Morse Code: ");
-            textToMorse(text);
-        }
-        else if (choice == 2)
-        {
-            printf("Enter Morse code (separate characters with spaces): ");
-            fgets(text, sizeof(text), stdin);
-            printf("Decoded Text: ");
-            morseToText(text);
-        }
-        else if (choice == 3)
-        {
-            printf("%c[4;3;35m\t\t\tThank you for using our code, Hope to see you again soon :)\n%c[0m",27,27);   
-            exit(0);
-        }
-        else
-        {
-            printf("Invalid choice :( \n");
-        }
-    } while (choice != 3); //continuation of loop until user decides to exit
+// Function to display letters with Morse symbols
+void displayMorseSymbols() {
+  for (int i = 0; i < 36; i++) {
+    printf("%c: %s\n", (i < 26) ? ('A' + i) : ('0' + i - 26), morseCode[i]);
+  }
+}
+
+int main() {
+  int choice;
+  char input[100];
+
+  printf("%c[4;3;35m\t\t\t\t\tWelcome to Morse Code Converter\n%c[0m", 27, 27);
+  do {
+    printf("\n\t%c[4mMenu\n%c[0m\n", 27, 27);
+    printf("1. Text to Morse\n");
+    printf("2. Morse to Text\n");
+    printf("3. Display Letters with Morse Symbols\n");
+    printf("4. Exit\n");
+    printf("Enter your choice: ");
+    scanf("%d", &choice);
+
+    switch (choice) {
+    case 1:
+      printf("Enter text: ");
+      scanf(" %[^\n]", input);
+      textToMorse(input);
+      break;
+    case 2:
+      printf("Enter Morse code (separate letters with spaces): ");
+      scanf(" %[^\n]", input);
+      morseToText(input);
+      break;
+    case 3:
+      displayMorseSymbols();
+      break;
+    case 4:
+      printf("%c[4;3;35m\t\t\tThank you for using our code, Hope to see you "
+             "again soon :)\n%c[0m",
+             27, 27);
+      break;
+    default:
+      printf("%c[4;3;35m\t\t\t Invalid choice :( \n%c[0m", 27, 27);
+    }
+  } while (choice != 4);
+
+  return 0;
 }
