@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
-    <title>Morse Code Converter</title>
+    <title>Morse Code Conversion Program</title>
 </head>
-<body>
-    <h1>Morse Code Converter</h1>
 
-    <p>Morse code is a system of communication that uses dots and dashes to represent letters, numbers, and punctuation. A dot is a short signal, and a dash is a long signal. The spaces between signals represent the separation between letters, words, and sentences. This repository contains a Morse code conversion program written in C language.</p>
+<body>
+    <h1>Morse Code Conversion Program</h1>
+
+    <h2>Description</h2>
+    <p>Morse code is a system of communication that uses dots and dashes to represent letters, numbers, and punctuation. A dot is a short signal, and a dash is a long signal. The spaces between signals represent the separation between letters, words, and sentences.</p>
 
     <h2>Prerequisites</h2>
     <ul>
@@ -19,12 +22,13 @@
 
     <h2>Files</h2>
     <ul>
-        <li><a href="project.c">project.c</a> - Program to convert text to Morse code and Morse code to text.</li>
-        <li><a href="Morse%20Code%20mind%20map.png">Morse Code mind map.png</a> - Visual representation of the program's features and functionality.</li>
-        <li>Flowchart of morse code convertor - Diagram illustrating the steps involved in the program's execution.</li>
-        <li>Functional requirement of Morse code document - Specifies the features of morse code convertor.</li>
+        <li><a href="project.c" download>project.c</a> - Contains the Morse code conversion program written in C language.</li>
+        <li><a href="Morse%20Code%20mind%20map.png" target="_blank">Morse Code mind map.png</a> - Visual representation of the program's features and functionality.</li>
+        <li><a href="flowchart.png" target="_blank">Flowchart of Morse Code Converter</a> - Diagram illustrating the steps involved in the program's execution.</li>
+        <li><a href="functional-requirements.pdf" target="_blank">Functional Requirements of Morse Code Converter</a> - Specification of the program's features.</li>
     </ul>
 
-    <p>Hope you find this code useful :) Happy Coding!</p>
+    <p>Hope you find this code useful! Happy Coding :)</p>
 </body>
+
 </html>
