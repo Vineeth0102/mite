@@ -28,6 +28,8 @@
 </ul>
 <h2>Mind map</h2>
 <img src="https://github.com/Vineeth0102/mite/blob/main/Morse%20Code%20mind%20map.png"></img>
+<h2>Flowchart</h2>
+<img src="https://github.com/Vineeth0102/mite/blob/main/flowchart.png"></img>
 <p>Hope you find this code useful! Happy Coding :)</p>
 
 
