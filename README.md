@@ -18,7 +18,7 @@
 <li><a href="functional-requirements.pdf" target="_blank">Functional Requirements of Morse Code Converter</a> - Specification of the program's features.</li>
 </ul>
 <h2>Mind map</h2>
-<img src=""></img>
+<img src="https://github.com/Vineeth0102/mite/blob/main/Morse%20Code%20mind%20map.png"></img>
 <p>Hope you find this code useful! Happy Coding :)</p>
 
 
