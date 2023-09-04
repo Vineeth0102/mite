@@ -29,7 +29,6 @@ void textToMorse(const char *text) {
   printf("\n");
 }
 
-// Function to convert text to
 // Function to convert Morse code to text
 void morseToText(const char *morse) {
   char *token = strtok((char *)morse, " ");
